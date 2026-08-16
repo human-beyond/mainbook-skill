@@ -1,6 +1,6 @@
-# MainBook bank statements — an agent skill
+# MainBook Bank Statement Converter — agent skill
 
-An agent skill for turning PDF bank and credit-card statements into checked Excel, CSV or JSON — and, more importantly, for **checking the result before it is handed to anyone**.
+The bank statement converter skill: an agent skill for turning PDF bank and credit-card statements into checked Excel, CSV or JSON — and, more importantly, for **checking the result before it is handed to anyone**.
 
 Statement PDFs are one of the few documents where a plausible-looking answer is worse than no answer. A row read as `1,234.56` instead of `123.45` still looks like a transaction and still sums to something. This skill teaches an assistant the workflow that catches that: look before spending credits, convert, re-add the statement, and report flagged rows instead of smoothing them over.
 
