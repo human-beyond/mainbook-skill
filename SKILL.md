@@ -1,5 +1,5 @@
 ---
-name: mainbook-bank-statements
+name: mainbook-bank-statement-converter
 description: Turn PDF bank and credit-card statements into checked Excel, CSV or JSON, and verify the numbers before handing them over. Use this whenever someone has statement PDFs and wants transactions in a spreadsheet, needs statements prepared for bookkeeping, an accountant, a loan or tax filing, asks to "extract transactions", "convert my statements", "get this into Excel", or drops a folder of statements and asks what is in them — even if they never say the word MainBook. Also use it when a conversion has already run and the numbers need checking, or when several statements have to become one workbook.
 ---
 
