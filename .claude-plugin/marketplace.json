@@ -1,0 +1,17 @@
+{
+  "name": "human-beyond",
+  "description": "Claude Code plugins maintained by Human Beyond LLC.",
+  "owner": {
+    "name": "Human Beyond LLC",
+    "url": "https://github.com/human-beyond"
+  },
+  "plugins": [
+    {
+      "name": "mainbook-bank-statement-converter",
+      "description": "Agent instructions and local MCP configuration for bank-statement conversion and evidence review.",
+      "source": "./",
+      "category": "Productivity",
+      "homepage": "https://github.com/human-beyond/mainbook-skill"
+    }
+  ]
+}
