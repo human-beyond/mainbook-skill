@@ -1,4 +1,4 @@
-# MainBook bank-statement conversion skill
+# MainBook Bank Statement Converter — agent skill
 
 This repository contains agent instructions, not the converter. Converting a file requires the `mainbook-mcp` server and a MainBook account. Each conversion spends one page credit per PDF page; installing the skill and calling the other four MCP tools does not spend page credits.
 
