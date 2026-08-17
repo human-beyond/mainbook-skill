@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "mainbook": {
+      "command": "uvx",
+      "args": [
+        "mainbook-mcp",
+        "${HOME}/Downloads",
+        "${HOME}/Desktop",
+        "${HOME}/Documents"
+      ]
+    }
+  }
+}

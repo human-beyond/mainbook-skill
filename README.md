@@ -1,39 +1,48 @@
 # MainBook Bank Statement Converter — agent skill
 
-The bank statement converter skill: an agent skill for turning PDF bank and credit-card statements into checked Excel, CSV or JSON — and, more importantly, for **checking the result before it is handed to anyone**.
+This repository contains agent instructions, not the converter. Converting a file requires the `mainbook-mcp` server and a MainBook account. Each conversion spends one page credit per PDF page; installing the skill and calling the other four MCP tools does not spend page credits.
 
-Statement PDFs are one of the few documents where a plausible-looking answer is worse than no answer. A row read as `1,234.56` instead of `123.45` still looks like a transaction and still sums to something. This skill teaches an assistant the workflow that catches that: look before spending credits, convert, re-add the statement, and report flagged rows instead of smoothing them over.
+The instructions require the agent to retrieve the JSON evidence behind XLSX/CSV results, report arithmetic mismatches and row-level warnings without treating reconciliation as proof of perfect extraction, and preserve provenance across multiple statements.
 
-The extraction and the arithmetic check are done by [MainBook](https://mainbook.ai/mcp) through its MCP server. This repository is the skill — the judgement around the tool, not a copy of it.
+## Install for Claude Code
 
-## Install
+The Claude Code plugin bundles the skill and a local stdio MCP configuration with no secret:
+
+```text
+/plugin marketplace add human-beyond/mainbook-skill
+/plugin install mainbook-bank-statement-converter@human-beyond
+```
+
+Then sign in separately and reload Claude Code:
+
+```bash
+uvx mainbook-mcp auth login
+```
+
+The command opens a browser approval page and stores a revocable credential locally; no key is copied into the plugin. Verify the reloaded connection with the free `get_balance` tool. See [`references/setup.md`](references/setup.md) for the full flow and folder configuration.
+
+## Install the skill only
+
+For agents supported by the open skills CLI:
 
 ```bash
 npx skills add human-beyond/mainbook-skill
 ```
 
-Or copy `SKILL.md` and `references/` into your agent's skills directory.
+This command installs the instructions only. The root `SKILL.md` is the single source used by both the skills CLI and the Claude Code plugin. Non-plugin clients still need the MCP configuration and terminal sign-in described in [`references/setup.md`](references/setup.md).
 
-The skill needs MainBook's MCP server to be reachable — either the published package (`uvx mainbook-mcp`) or the hosted endpoint at `https://mcp.mainbook.ai/mcp`. Both use your own MainBook API key from <https://mainbook.ai/developer>. Setup details are in [`references/setup.md`](references/setup.md).
+Codex does not use the Claude Code plugin format. Install the skill, add the local MCP entry to `~/.codex/config.toml`, and run `uvx mainbook-mcp auth login`.
 
-## What it covers
+## Scope
 
-- checking the page-credit balance and telling the person the cost **before** converting;
-- picking the output format for what actually happens next — a human opening a spreadsheet, an import into accounting software, or answering questions in the conversation;
-- reading the validation verdict honestly: opening balance + credits − debits against the printed closing balance;
-- treating flagged rows as a human's job rather than noise to summarise away;
-- merging several statements into one workbook while catching overlapping periods and missing months;
-- credit cards, where a per-row running balance does not exist and its absence is not an error;
-- the failure paths — password-protected PDFs, poor scans, the 50 MiB / 500 page limits, and jobs that outrun the polling window.
+The workflow covers page-credit preflight, duplicate-charge protection, timeout recovery, mandatory JSON evidence retrieval, statement and card validation, warning rows, insufficient credits, local-versus-hosted boundaries, and multi-statement delivery.
 
-## What it will not do
-
-MainBook reads statement files you already have. It does not connect to bank accounts, has no Open Banking access, and holds no banking credentials. There are no tools for buying credits, taking payments, deleting jobs, or changing account data — and the skill is explicit about saying so rather than improvising.
+MainBook reads statement files the person already has. It does not connect to bank accounts, hold banking credentials, buy credits, take payments, delete jobs, or change account data.
 
 ## Related
 
-- [`human-beyond/mainbook-mcp`](https://github.com/human-beyond/mainbook-mcp) — the MCP server this skill drives
-- [`ai.mainbook/bank-statement-converter`](https://registry.modelcontextprotocol.io/v0.1/servers?search=ai.mainbook) — its entry in the official MCP Registry
-- [mainbook.ai/mcp](https://mainbook.ai/mcp) — product documentation
+- [`human-beyond/mainbook-mcp`](https://github.com/human-beyond/mainbook-mcp) — MCP server source
+- [MainBook MCP setup](https://mainbook.ai/mcp) — account and product setup reference
+- [`references/output-schema.md`](references/output-schema.md) — MCP JSON and spreadsheet representations
 
 MIT licensed. Maintained by Human Beyond LLC.
