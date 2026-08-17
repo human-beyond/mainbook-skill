@@ -56,7 +56,7 @@ All `*_cents` values are integer minor units. Divide by 100 only for display; pr
 | `line_index` | non-negative integer | Source line index on that page |
 | `date` | string | Returned transaction date |
 | `description` | string | Returned narrative |
-| `amount_cents` | integer cents | Signed transaction amount |
+| `amount_cents` | integer cents | Returned transaction amount |
 | `transaction_type` | `credit` or `debit` | Returned direction |
 | `balance_after_cents` | integer cents or null | Running balance when present |
 | `currency` | string or null | Row currency when present |
