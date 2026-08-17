@@ -227,6 +227,7 @@ I deliberately did not add a second `SKILL.md`, a hosted default, a Codex plugin
 - Branch: `feature/terminal-login-rewrite`
 - Starting commit: `8f9acb8a9c6cf8a723b6702ce2dad1997815b230`
 - Implementation commit: `46b2e73cdb1b06eefe97d456a43e020eb0ea3839`
-- The report itself is committed separately after this file is written; its hash is necessarily available from branch history rather than self-embedded in the commit it identifies.
+- Verification/report commit: `d68f00194fd50b94e41b828d16da5c6c9321f94e`
+- The current HEAD after recording the preceding report hash is listed in the reviewer handoff; a commit cannot embed its own final hash.
 
 Paid API calls: **0**. DataForSEO: 0; Exa: 0; Firecrawl API: 0; ScrapeCreators: 0; Apify: 0; MainBook conversion API: 0. Approximate paid spend: **$0.00**. Research and validation used only public read-only HTTP GETs, local validators, package downloads, and local MCP initialization/tool discovery.
