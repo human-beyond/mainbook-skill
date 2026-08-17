@@ -11,7 +11,20 @@
       "description": "Agent instructions and local MCP configuration for bank-statement conversion and evidence review.",
       "source": "./",
       "category": "Productivity",
-      "homepage": "https://github.com/human-beyond/mainbook-skill"
+      "homepage": "https://mainbook.ai/mcp",
+      "repository": "https://github.com/human-beyond/mainbook-skill",
+      "license": "MIT",
+      "keywords": [
+        "bank-statements",
+        "pdf",
+        "excel",
+        "csv",
+        "json",
+        "accounting",
+        "bookkeeping",
+        "document-conversion",
+        "mcp"
+      ]
     }
   ]
 }
