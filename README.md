@@ -19,7 +19,7 @@ Then sign in separately and reload Claude Code:
 uvx mainbook-mcp auth login
 ```
 
-The command opens a browser approval page and stores a revocable credential locally; no key is copied into the plugin. Verify the reloaded connection with the free `get_balance` tool. See [`references/setup.md`](references/setup.md) for the full flow and folder configuration.
+The command opens a browser approval page and stores a revocable credential locally; no key is copied into the plugin. Verify the reloaded connection with the free `get_balance` tool. See [`references/setup.md`](skills/mainbook-bank-statement-converter/references/setup.md) for the full flow and folder configuration.
 
 ## Install the skill only
 
@@ -29,7 +29,7 @@ For agents supported by the open skills CLI:
 npx skills add human-beyond/mainbook-skill
 ```
 
-This command installs the instructions only. The root `SKILL.md` is the single source used by both the skills CLI and the Claude Code plugin. Non-plugin clients still need the MCP configuration and terminal sign-in described in [`references/setup.md`](references/setup.md).
+This command installs the instructions only. `skills/mainbook-bank-statement-converter/SKILL.md` is the single source used by the skills CLI, the Claude Code plugin, and the GitHub Copilot plugin. Non-plugin clients still need the MCP configuration and terminal sign-in described in [`references/setup.md`](skills/mainbook-bank-statement-converter/references/setup.md).
 
 Codex does not use the Claude Code plugin format. Install the skill, add the local MCP entry to `~/.codex/config.toml`, and run `uvx mainbook-mcp auth login`.
 
@@ -43,6 +43,6 @@ MainBook reads statement files the person already has. It does not connect to ba
 
 - [`human-beyond/mainbook-mcp`](https://github.com/human-beyond/mainbook-mcp) — MCP server source
 - [MainBook MCP setup](https://mainbook.ai/mcp) — account and product setup reference
-- [`references/output-schema.md`](references/output-schema.md) — MCP JSON and spreadsheet representations
+- [`references/output-schema.md`](skills/mainbook-bank-statement-converter/references/output-schema.md) — MCP JSON and spreadsheet representations
 
 MIT licensed. Maintained by Human Beyond LLC.

@@ -1,8 +1,8 @@
 {
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "mainbook-bank-statement-converter",
-  "displayName": "MainBook Bank Statement Converter",
   "version": "1.0.1",
-  "description": "Agent instructions and local MCP configuration for converting PDF bank statements and reviewing arithmetic and warning evidence.",
+  "description": "Agent instructions and local MCP configuration for converting PDF bank statements to XLSX, CSV, or JSON and reviewing arithmetic and warning evidence.",
   "author": {
     "name": "Human Beyond LLC",
     "url": "https://mainbook.ai"
