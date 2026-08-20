@@ -231,3 +231,52 @@ I deliberately did not add a second `SKILL.md`, a hosted default, a Codex plugin
 - The current HEAD after recording the preceding report hash is listed in the reviewer handoff; a commit cannot embed its own final hash.
 
 Paid API calls: **0**. DataForSEO: 0; Exa: 0; Firecrawl API: 0; ScrapeCreators: 0; Apify: 0; MainBook conversion API: 0. Approximate paid spend: **$0.00**. Research and validation used only public read-only HTTP GETs, local validators, package downloads, and local MCP initialization/tool discovery.
+
+---
+
+# Addendum 2026-08-20 — hosted OAuth mode, and three corrections
+
+Browser sign-in went live on `https://mcp.mainbook.ai/mcp` on 20 August 2026, which invalidated
+the previous "the hosted endpoint has no OAuth flow" guidance. This addendum records what changed
+and what was verified against production.
+
+## Verified against production on 2026-08-20
+
+- Anonymous `initialize` and `tools/list` succeed; only `tools/call` requires a token. An
+  unauthenticated call returns `HTTP 401` with `{"error":"invalid_token"}` and
+  `WWW-Authenticate: Bearer resource_metadata="https://mcp.mainbook.ai/.well-known/oauth-protected-resource/mcp"`.
+- Hosted mode publishes exactly four tools; `output_folder` is stdio-only. `file_path` and
+  `output_path` remain in the schema but are refused at call time.
+- Scopes are `mainbook:read` (balance, list, retrieve) and `mainbook:convert`
+  (`convert_bank_statement` only). A missing scope is `HTTP 403 insufficient_scope`, and the
+  approval screen grants exactly what the client requested — there is no partial approval.
+- XLSX and CSV for a browser-signed-in caller come back as a one-time link valid for ten minutes,
+  consumed on first open, requiring no key or header. A caller using a legacy `mb_live_` key still
+  gets the REST endpoint instead.
+- Disconnecting a client under "Connected apps" ends its access on the next call, because every
+  hosted call re-checks the consent row.
+
+## Corrections to the previous revision
+
+1. **`validation.passed` was described as an arithmetic verdict. It is not.** It is true only when
+   the job ends in the clean state, so a job ending with warnings reports `passed: false` even with
+   zero mismatched rows. The previous wording would have made an agent announce arithmetic failures
+   that never happened. The arithmetic verdict is `mismatched_rows` with `reconcilable`.
+2. **`amount_cents` is already signed** — positive for a credit, negative for a debit. Nothing said
+   so, and an agent applying `transaction_type` as the sign would double-negate every debit.
+3. **The README claimed `SKILL.md` feeds a GitHub Copilot plugin.** Nothing in this repository
+   supports that; the claim is removed.
+
+## Added because the workflow could otherwise waste a person's credits or time
+
+Six concurrent conversions per account, the 30–900 second `timeout_seconds` budget and why its
+default sits under 60, the permanent and conflict-raising nature of `idempotency_key`, the separate
+"API terms not accepted" 403, local results being renamed rather than overwritten, `get_conversion`
+being unable to guess a local destination, and the difference between `user_accepted` and
+`user_reviewed` rows.
+
+## Still not exercised
+
+No paid conversion was run and no OAuth access token was obtained, so the browser-signed-in
+XLSX hand-over was verified from the server source, the live tool schema, and the live behaviour of
+the ticket routes — not by downloading a file end to end. Paid API calls: **0**.
